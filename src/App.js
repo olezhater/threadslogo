@@ -7,7 +7,7 @@ import { ReactComponent as PreviewSingleSvg } from './svg/preview/single/preview
 import { ReactComponent as PreviewSingleColorSvg } from './svg/preview/single/preview-color.svg';
 import { saveAs } from 'file-saver';
 import domtoimage from 'dom-to-image';
-//work
+
 const { Title, Text, Link } = Typography;
 const { Option } = Select;
 
