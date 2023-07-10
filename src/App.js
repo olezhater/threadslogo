@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import ReactDOM from 'react-dom';
-import { Typography, Radio, Button, Checkbox, Select, Form, Input } from 'antd';
+import { Typography, Radio, Button, Checkbox, Select, Form, Input, Card, Divider } from 'antd';
 import { ReactComponent as PreviewBgSvg } from './svg/preview/bg/preview.svg';
 import { ReactComponent as PreviewBgColorSvg } from './svg/preview/bg/preview-color.svg';
 import { ReactComponent as PreviewSingleSvg } from './svg/preview/single/preview.svg';
@@ -10,6 +10,7 @@ import domtoimage from 'dom-to-image';
 
 const { Title, Text, Link } = Typography;
 const { Option } = Select;
+const { Meta } = Card;
 
 const App = () => {
   const [color, setColor] = useState('white');
@@ -110,6 +111,7 @@ const App = () => {
   const isDownloadDisabled = color === 'unselected' || size === 'unselected';
 
   useEffect(() => {
+    document.title = 'Threads logo download free SVG, PNG';
     if (color === 'black') {
       document.body.style.backgroundColor = 'black';
     } else {
@@ -208,12 +210,49 @@ const App = () => {
               <Button
                 type="link"
                 href="https://www.buymeacoffee.com/olezhater" target="_blank"
-                style={{ textAlign: 'center', paddingTop: '1em' }}
+                style={{ textAlign: 'center', paddingTop: '1em', marginBottom: '2em' }}
               >
                 Buy me a coffee :)
               </Button>
             </div>
-            <span style={{ display: 'inline-flex', alignItems: 'baseline', paddingTop: '4em'}}>
+            <Divider />
+            <div style={{ textAlign: 'center', paddingTop: '2em' }}>
+            <Title level={4} style={{ color: color === 'black' ? 'white' : 'black' }}>
+            Recently downloaded by users
+            </Title>
+            </div>
+            <Text style={{ color: color === 'black' ? 'white' : 'black' }}>Total downloads: 1,278</Text>
+            <div style={{ display: 'flex', justifyContent: 'center', gap: '20px', paddingTop: '1em' }}>
+                <Card
+                  hoverable
+                  style={{ width: 240, padding: '1em', cursor: 'auto' }}
+                  cover={<img alt="thread logo clip art" src="../img/33A4AB.png" />}
+                >
+                  <Meta description="#33A4AB" />
+                </Card>
+                <Card
+                  hoverable
+                  style={{ width: 240, padding: '1em', cursor: 'auto' }}
+                  cover={<img alt="thread logo svg download" src="../img/4B33AB.png" />}
+                >
+                  <Meta description="#4B33AB" />
+                </Card>
+                <Card
+                  hoverable
+                  style={{ width: 240, padding: '1em', cursor: 'auto' }}
+                  cover={<img alt="thread logo png" src="../img/303030.png" />}
+                >
+                  <Meta description="#303030" />
+                </Card>
+                <Card
+                  hoverable
+                  style={{ width: 240, padding: '1em', cursor: 'auto' }}
+                  cover={<img alt="thread logo download free online" src="../img/CC4014.png" />}
+                >
+                  <Meta description="#CC4014" />
+                </Card>
+            </div>
+            <span style={{ display: 'inline-flex', alignItems: 'baseline', paddingTop: '2em'}}>
               <Text style={{ color: color === 'black' ? 'white' : 'black' }}>Original file</Text>
               <Link href="https://en.wikipedia.org/wiki/File:Threads_(app)_logo.svg" target="_blank" style={{ marginLeft: '0.3em' }}>here</Link>
             </span>
