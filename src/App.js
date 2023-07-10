@@ -207,9 +207,10 @@ const App = () => {
             <div>
               <Button
                 type="link"
+                href="https://www.buymeacoffee.com/olezhater" target="_blank"
                 style={{ textAlign: 'center', paddingTop: '1em' }}
               >
-                Say Thanks
+                Buy me a coffee :)
               </Button>
             </div>
             <span style={{ display: 'inline-flex', alignItems: 'baseline', paddingTop: '4em'}}>
