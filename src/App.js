@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import ReactDOM from 'react-dom';
-import { Typography, Radio, Button, Checkbox, Select, Form, Input, Card, Divider } from 'antd';
+import { Typography, Radio, Button, Checkbox, Select, Form, Input, Card, Divider, Space, Col, Row, ConfigProvider } from 'antd';
 import { ReactComponent as PreviewBgSvg } from './svg/preview/bg/preview.svg';
 import { ReactComponent as PreviewBgColorSvg } from './svg/preview/bg/preview-color.svg';
 import { ReactComponent as PreviewSingleSvg } from './svg/preview/single/preview.svg';
@@ -21,6 +21,39 @@ const App = () => {
   const [customColor, setCustomColor] = useState('');
   const [imgColor, setImgColor] = useState('black');
   const svgContainerRef = useRef(null);
+
+  const config = {
+    "token": {
+      "fontFamily": "'Prompt', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif",
+      "fontSize": 16,
+      "sizeStep": 6,
+      "colorPrimary": "#141414",
+      "colorInfo": "#F6832D",
+      "colorLink": "#F6832D",
+      "borderRadius": 8,
+    },
+    "components": {
+      "Checkbox": {
+        "colorPrimary": "rgb(40, 40, 40)"
+      },
+      "Divider": {
+        "colorSplit": "rgba(233, 233, 233, 0.7)"
+      },
+      "Button": {
+        "controlHeight": 40,
+        "colorPrimaryHover": "rgb(67, 67, 67)"
+      },
+      "Card": {
+        "fontSize": 14,
+        "colorBorderSecondary": "rgb(223, 223, 223)"
+      },
+      "Radio": {
+        "colorPrimary": "rgb(40, 40, 40)"
+      }
+    },
+  };
+
+  const [isAnimated, setIsAnimated] = useState(false);
 
   const handleColorChange = (e) => {
     setColor(e.target.value);
@@ -96,6 +129,8 @@ const App = () => {
     }
   };
 
+  const SvgComponent = getSvgElement();
+
   const dataURLToBlob = (dataURL) => {
     const parts = dataURL.split(';base64,');
     const contentType = parts[0].split(':')[1];
@@ -113,152 +148,265 @@ const App = () => {
   useEffect(() => {
     document.title = 'Threads logo download free SVG, PNG';
     if (color === 'black') {
-      document.body.style.backgroundColor = 'black';
+      document.body.style.backgroundColor = '#141414';
     } else {
       document.body.style.backgroundColor = '';
-    }
+    };
+    setIsAnimated(true);
   }, [color]);
-  
-  
 
-  const SvgComponent = getSvgElement();
+  const [screenWidth] = useState(window.innerWidth);
+
+  //Styles
+  const svgStyle =
+  screenWidth <= 375
+    ? { width: '240px', height: '240px' }
+    : { width: '320px', height: '320px' };
+
+  const svgconteinerStyle =
+  screenWidth <= 375
+    ? { width: '240px', height: '240px' }
+    : { width: '320px', height: '320px' };
+
+  const alignconteinerStyle =
+  screenWidth <= 375
+    ? { alignItems: 'center' }
+    : { alignItems: 'flex-start' };
+
+  const btnStyle =
+  screenWidth <= 375
+    ? { width: '240px', marginBottom: '2em' }
+    : { width: '320px' };
+
+  const dividerStyle =
+  screenWidth <= 768
+    ? { display: 'none' }
+    : { display: 'flex', alignItems: 'center', marginRight: '2em' };
+
+
+  const styles = {
+    padding: window.innerWidth <= 768 
+    ? '0 8px' 
+    : '0 32px',
+  };
+
+  const titleStyle = {
+    color: color === 'black' ? 'white' : '#141414',
+    background: `linear-gradient(to right, rgba(255, 221, 85, 0), rgba(255, 221, 85, 1), rgba(255, 84, 62, 1), rgba(200, 55, 171, 1), rgba(55, 113, 200, 1), rgba(102, 0, 255, 0)) no-repeat left center`,
+    backgroundSize: '0% 100%',
+    transition: 'background-size 1s ease',
+  };
+  
+  if (isAnimated) {
+    titleStyle.backgroundSize = '100% 100%';
+  }
+  
 
   return (
-    <div style={{ display: 'block', textAlign: 'center', padding: '3em 0 3em 0' }}>
-      <Title level={1} style={{ color: color === 'black' ? 'white' : 'black' }}>Free Download Threads logo vector SVG, PNG</Title>
-      <div style={{ paddingTop: '1em' }} ref={svgContainerRef}>
-        {SvgComponent && (
-          <SvgComponent fill={isCustomSelected ? customColor : imgColor} style={{ width: '300px', height: '300px' }} />
-        )}
-      </div>
-      <div style={{ paddingTop: '1em' }}>
-        <Title level={4} style={{ color: color === 'black' ? 'white' : 'black' }}>
-          Color
-        </Title>
-      </div>
-      <div>
-        <Checkbox
-          checked={isBackgroundSelected}
-          onChange={handleBackgroundChange}
-          style={{ color: color === 'black' ? 'white' : 'black' }}
-        >
-          Background
-        </Checkbox>
-      </div>
-      <div style={{ paddingTop: '1em', height: '5em' }}>
-        <Radio.Group value={color} onChange={handleColorChange} style={{ marginRight: '10px' }}>
-          <Radio value="white" style={{ color: color === 'black' ? 'white' : 'black' }}>
-            Black
-          </Radio>
-          <Radio value="black" style={{ color: color === 'black' ? 'white' : 'black' }}>
-            White
-          </Radio>
-          <Radio value="color" style={{ color: color === 'black' ? 'white' : 'black' }}>
-            Color
-          </Radio>
-          <Radio value="custom" style={{ color: color === 'black' ? 'white' : 'black' }}>
-            Custom
-          </Radio>
-        </Radio.Group>
-        {isCustomSelected && (
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', paddingTop: '20px' }}>
-            <Form labelCol={{ span: 4 }} wrapperCol={{ span: 14 }} layout="horizontal">
-              <Form.Item label="HEX">
-                <Input placeholder="#000000" value={customColor} onChange={handleCustomChange} />
-              </Form.Item>
-            </Form>
-          </div>
-        )}
-      </div>
-      <div style={{ textAlign: 'center' }}>
-        <Title level={4} style={{ color: color === 'black' ? 'white' : 'black' }}>
-              Size
-            </Title>
-            </div>
-            <div style={{ textAlign: 'center', paddingTop: '0.5em' }}>
-            <Select defaultValue="16x16" style={{ width: 200 }} onChange={handleSizeChange}>
-              <Option value="16x16">16x16 px</Option>
-              <Option value="32x32">32x32 px</Option>
-              <Option value="240x240">240×240 px</Option>
-              <Option value="480x480">480×480 px</Option>
-              <Option value="1024x1024">1,024×1,024 px</Option>
-            </Select>
-            </div>
-            <div style={{ textAlign: 'center', paddingTop: '4em' }}>
-            <Title level={4} style={{ color: color === 'black' ? 'white' : 'black' }}>
-              Format
-            </Title>
-            </div>
-            <div style={{ textAlign: 'center', paddingTop: '0.5em' }}>
-            <Radio.Group value={format} onChange={handleFormatChange}>
-              <Radio.Button value="SVG">SVG</Radio.Button>
-              <Radio.Button value="PNG">PNG</Radio.Button>
-            </Radio.Group>
-            </div>
-            <div style={{ textAlign: 'center', paddingTop: '3em' }}>
-            <div>
+    <ConfigProvider theme={ config }>
+    <>
+    <div style={styles}>
+      <Row style={{ marginBottom:'2em' }}>
+        <Space wrap align='baseline' style={{ marginTop: '4em' }}>
+          <Title level={1} style={{ color: color === 'black' ? 'white' : '#141414', margin: '0' }}>
+            Free Download Threads logo, vector SVG, PNG
+          </Title>
+        </Space>
+      </Row>
+
+      <Row style={{ marginBottom:'2em' }}>
+        {/*Left*/}
+        <Col xs={24} sm={24} md={24} lg={8} xl={8} xxl={8}>
+          <Space direction='vertical' style={{ width: '100%', height: '100%' }}>
+          <Space
+            direction='vertical'
+            style={{
+              ...alignconteinerStyle,
+              height: '100%',
+              display: 'flex',
+              flexDirection: 'column',
+            }}
+            ref={svgContainerRef}
+            >
+            {SvgComponent && (
+              <div
+                style={{
+                  ...svgconteinerStyle,
+                  position: 'relative',
+                }}
+              >
+                <SvgComponent
+                  fill={isCustomSelected ? customColor : imgColor}
+                  style={{
+                    ...svgStyle,
+                  }}
+                />
+              </div>
+            )}
+            <Space style={{ width: '100%' }}>
               <Button
                 type="primary"
+                block
                 disabled={isDownloadDisabled}
                 onClick={handleDownload}
-                style={{ color: isDownloadDisabled ? 'grey' : 'white' }}
+                style={{
+                  ...btnStyle,
+                  color: isDownloadDisabled ? 'grey' : 'white',
+                  marginTop: '2em',
+                  border: color === 'black' ? '1px solid white' : '',
+                  borderRadius: color === 'black' ? '8px' : '',
+                }}
               >
                 Download
               </Button>
-            </div>
-            <div>
-              <Button
-                type="link"
-                href="https://www.buymeacoffee.com/olezhater" target="_blank"
-                style={{ textAlign: 'center', paddingTop: '1em', marginBottom: '2em' }}
-              >
-                Buy me a coffee :)
-              </Button>
-            </div>
-            <Divider />
-            <div style={{ textAlign: 'center', paddingTop: '2em' }}>
-            <Title level={4} style={{ color: color === 'black' ? 'white' : 'black' }}>
-            Recently downloaded by users
-            </Title>
-            </div>
-            <Text style={{ color: color === 'black' ? 'white' : 'black' }}>Total downloads: 1,278</Text>
-            <div style={{ display: 'flex', justifyContent: 'center', gap: '20px', paddingTop: '1em' }}>
-                <Card
-                  hoverable
-                  style={{ width: 240, padding: '1em', cursor: 'auto' }}
-                  cover={<img alt="thread logo clip art" src="../img/33A4AB.png" />}
-                >
-                  <Meta description="#33A4AB" />
-                </Card>
-                <Card
-                  hoverable
-                  style={{ width: 240, padding: '1em', cursor: 'auto' }}
-                  cover={<img alt="thread logo svg download" src="../img/4B33AB.png" />}
-                >
-                  <Meta description="#4B33AB" />
-                </Card>
-                <Card
-                  hoverable
-                  style={{ width: 240, padding: '1em', cursor: 'auto' }}
-                  cover={<img alt="thread logo png" src="../img/303030.png" />}
-                >
-                  <Meta description="#303030" />
-                </Card>
-                <Card
-                  hoverable
-                  style={{ width: 240, padding: '1em', cursor: 'auto' }}
-                  cover={<img alt="thread logo download free online" src="../img/CC4014.png" />}
-                >
-                  <Meta description="#CC4014" />
-                </Card>
-            </div>
-            <span style={{ display: 'inline-flex', alignItems: 'baseline', paddingTop: '2em'}}>
-              <Text style={{ color: color === 'black' ? 'white' : 'black' }}>Original file</Text>
-              <Link href="https://en.wikipedia.org/wiki/File:Threads_(app)_logo.svg" target="_blank" style={{ marginLeft: '0.3em' }}>here</Link>
-            </span>
-            </div>
-            </div>
-            );
-            };
+            </Space>
+          </Space>
 
-            export default App;
+          </Space>
+        </Col>
+        <div style={ dividerStyle }>
+          <Divider type="vertical" style={{ height: '100%' }} />
+        </div>
+
+       {/*Right*/}
+        <Col xs={24} sm={24} md={8} lg={8} xl={8} xxl={8}>   
+          <Space>
+            {/*Form*/}
+            <Space direction='vertical' size={8} style={{ width: '100%', margin: '1em 0' }}>
+                <Title level={3} style={{ color: color === 'black' ? 'white' : '#141414', marginTop:'0' }}>
+                  Setting
+                </Title>
+                <div style={{ position:'relative' }}>
+                  <div style={{ ...titleStyle, width:'105%', height:'1em', position:'absolute', top:'-2.2em', left:'-5%', zIndex:'-1'}}></div>
+                </div>
+                
+                <Space direction='vertical' size={12} style={{ width: '100%'}}>
+                  <Space align="baseline" style={{ width: '100%', justifyContent:'space-between' }}>
+                      <Title level={5} style={{ color: color === 'black' ? 'white' : '#141414', margin: '0' }}>
+                        Color
+                      </Title>
+                      <Checkbox
+                        checked={isBackgroundSelected}
+                        onChange={handleBackgroundChange}
+                        style={{ color: color === 'black' ? 'white' : 'black', margin: '0' }}
+                      >
+                        Background
+                    </Checkbox>
+                  </Space>
+                  <Radio.Group value={color} onChange={handleColorChange} 
+                    style={{
+                    width: '100%',
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    rowGap: '12px'
+                  }}
+                  >
+                    <Radio value="white" style={{ color: color === 'black' ? 'white' : '#141414' }}>
+                      Black
+                    </Radio>
+                    <Radio value="black" style={{ color: color === 'black' ? 'white' : '#141414' }}>
+                      White
+                    </Radio>
+                    <Radio value="color" style={{ color: color === 'black' ? 'white' : '#141414' }}>
+                      Colorful
+                    </Radio>
+                    <Radio value="custom" style={{ color: color === 'black' ? 'white' : '#141414', margin: '0' }}>
+                      Custom
+                    </Radio>
+                  </Radio.Group>
+                  {isCustomSelected && (
+                    <Space style={{ width: '100%'}}>
+                      <Form layout="vertical" colon={false}>
+                        <Form.Item label="Enter the color" style={{ marginTop: '0.5em', marginBottom: '0' }}>
+                          <Input placeholder="#000000 or red" value={customColor} onChange={handleCustomChange} />
+                        </Form.Item>
+                      </Form>
+                    </Space>
+                  )}
+               </Space>
+
+              <Space direction='vertical' size={4} style={{ width: '100%'}}>
+                  <Title level={5} style={{ color: color === 'black' ? 'white' : '#141414' }}>
+                      Size
+                  </Title>
+                  <Select defaultValue="16x16" style={{ width: 200 }} onChange={handleSizeChange}>
+                    <Option value="16x16">16x16 px</Option>
+                    <Option value="32x32">32x32 px</Option>
+                    <Option value="240x240">240×240 px</Option>
+                    <Option value="480x480">480×480 px</Option>
+                    <Option value="1024x1024">1,024×1,024 px</Option>
+                  </Select>
+              </Space>
+
+              <Space direction='vertical' size={4} style={{ width: '100%'}}>
+                <Title level={5} style={{ color: color === 'black' ? 'white' : '#141414' }}>
+                  Format
+                </Title>
+                <Radio.Group value={format} onChange={handleFormatChange} style={{ border: color === 'black' ? '1px solid white' : '', borderRadius: color === 'black' ? '8px' : '' }}>
+                  <Radio.Button value="SVG">SVG</Radio.Button>
+                  <Radio.Button value="PNG">PNG</Radio.Button>
+                </Radio.Group>
+              </Space>
+  
+              <span style={{ display: 'inline-flex', alignItems: 'baseline', marginTop: '2em'}}>
+                <Text style={{ color: color === 'black' ? 'white' : '#141414' }}>Original file</Text>
+                <Link href="https://en.wikipedia.org/wiki/File:Threads_(app)_logo.svg" target="_blank" style={{ marginLeft: '0.3em' }}>here</Link>
+              </span>
+            </Space>
+          </Space>
+        </Col>
+      </Row>
+      <Row>
+      <Col span={24} style={{ ...styles, border:'1px solid rgba(233, 233, 233, 0.7)', marginBottom:'2em', borderRadius:'8px' }}>
+          <Space direction='vertical'>
+              <Title level={4} style={{ color: color === 'black' ? 'white' : '#141414' }}>
+                Recently downloaded by users
+              </Title>
+
+            <Text style={{ color: color === 'black' ? 'white' : '#141414' }}>Total downloads: 1,278</Text>
+
+            <Space wrap style={{ gap: '8px' }}>
+              <Card
+                style={{ backgroundColor: color === 'black' ? '#262626' : '#f5f5f5', width: 160, padding: '1em', cursor: 'auto', border:0 }}
+                cover={<img alt="thread logo clip art" src="../img/A24CAC.png" />}
+              >
+                <Meta
+                  description={<span style={{ color: color === 'black' ? 'white' : '#141414' }}>#A24CAC</span>} />
+              </Card>
+              <Card
+                style={{ backgroundColor: color === 'black' ? '#262626' : '#f5f5f5', width: 160, padding: '1em', cursor: 'auto', border:0 }}
+                cover={<img alt="thread logo svg download" src="../img/4B33AB.png" />}
+              >
+                <Meta description={<span style={{ color: color === 'black' ? 'white' : '#141414' }}>#4B33AB</span>} />
+              </Card>
+              <Card
+                style={{ backgroundColor: color === 'black' ? '#262626' : '#f5f5f5', width: 160, padding: '1em', cursor: 'auto', border:0 }}
+                cover={<img alt="thread logo png" src="../img/EB634A.png" />}
+              >
+                <Meta description={<span style={{ color: color === 'black' ? 'white' : '#141414' }}>#EB634A</span>} />
+              </Card>
+              <Card
+                style={{ backgroundColor: color === 'black' ? '#262626' : '#f5f5f5', width: 160, padding: '1em', cursor: 'auto', border:0 }}
+                cover={<img alt="thread logo download free online" src="../img/5F83CA.png" />}
+              >
+                <Meta description={<span style={{ color: color === 'black' ? 'white' : '#141414' }}>#5F83CA</span>} />
+              </Card>
+            </Space>
+
+            <Button
+              type="link"
+              href="https://www.buymeacoffee.com/olezhater" target="_blank"
+              style={{ textAlign: 'center', paddingTop: '1em', margin: '2em 0' }}
+             >
+              Buy me a coffee :)
+            </Button>
+        </Space>
+      </Col>
+    </Row>
+  </div>
+  </>
+  </ConfigProvider>
+  );
+};
+
+export default App;
