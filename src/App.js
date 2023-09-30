@@ -24,7 +24,7 @@ const App = () => {
 
   const config = {
     "token": {
-      "fontFamily": "'Prompt', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif",
+      "fontFamily": "'Kanit', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif",
       "fontSize": 16,
       "sizeStep": 6,
       "colorPrimary": "#141414",
@@ -37,7 +37,7 @@ const App = () => {
         "colorPrimary": "rgb(40, 40, 40)"
       },
       "Divider": {
-        "colorSplit": "rgba(233, 233, 233, 0.7)"
+        "colorSplit": "rgba(196, 196, 196, 0.4)"
       },
       "Button": {
         "controlHeight": 40,
@@ -150,7 +150,7 @@ const App = () => {
     if (color === 'black') {
       document.body.style.backgroundColor = '#141414';
     } else {
-      document.body.style.backgroundColor = '';
+      document.body.style.backgroundColor = '#fafafa';
     };
     setIsAnimated(true);
   }, [color]);
@@ -187,6 +187,12 @@ const App = () => {
   const styles = {
     padding: window.innerWidth <= 768 
     ? '0 8px' 
+    : '0 48px',
+  };
+
+  const recently = {
+    padding: window.innerWidth <= 768 
+    ? '0 8px' 
     : '0 32px',
   };
 
@@ -208,7 +214,7 @@ const App = () => {
     <div style={styles}>
       <Row style={{ marginBottom:'2em' }}>
         <Space wrap align='baseline' style={{ marginTop: '4em' }}>
-          <Title level={1} style={{ color: color === 'black' ? 'white' : '#141414', margin: '0' }}>
+          <Title level={1} style={{ color: color === 'black' ? 'white' : '#141414', margin: '0', fontWeight:'Bold' }}>
             Free Download Threads logo, vector SVG, PNG
           </Title>
         </Space>
@@ -357,7 +363,7 @@ const App = () => {
         </Col>
       </Row>
       <Row>
-      <Col span={24} style={{ ...styles, border:'1px solid rgba(233, 233, 233, 0.7)', marginBottom:'2em', borderRadius:'8px' }}>
+      <Col span={24} style={{ ...recently, border:'1px solid rgba(196, 196, 196, 0.4)', marginBottom:'2em', borderRadius:'8px' }}>
           <Space direction='vertical'>
               <Title level={4} style={{ color: color === 'black' ? 'white' : '#141414' }}>
                 Recently downloaded by users
@@ -367,26 +373,26 @@ const App = () => {
 
             <Space wrap style={{ gap: '8px' }}>
               <Card
-                style={{ backgroundColor: color === 'black' ? '#262626' : '#f5f5f5', width: 160, padding: '1em', cursor: 'auto', border:0 }}
+                style={{ backgroundColor: color === 'black' ? '#262626' : '#f0f0f0', width: 160, padding: '1em', cursor: 'auto', border:0 }}
                 cover={<img alt="thread logo clip art" src="../img/A24CAC.png" />}
               >
                 <Meta
                   description={<span style={{ color: color === 'black' ? 'white' : '#141414' }}>#A24CAC</span>} />
               </Card>
               <Card
-                style={{ backgroundColor: color === 'black' ? '#262626' : '#f5f5f5', width: 160, padding: '1em', cursor: 'auto', border:0 }}
+                style={{ backgroundColor: color === 'black' ? '#262626' : '#f0f0f0', width: 160, padding: '1em', cursor: 'auto', border:0 }}
                 cover={<img alt="thread logo svg download" src="../img/4B33AB.png" />}
               >
                 <Meta description={<span style={{ color: color === 'black' ? 'white' : '#141414' }}>#4B33AB</span>} />
               </Card>
               <Card
-                style={{ backgroundColor: color === 'black' ? '#262626' : '#f5f5f5', width: 160, padding: '1em', cursor: 'auto', border:0 }}
+                style={{ backgroundColor: color === 'black' ? '#262626' : '#f0f0f0', width: 160, padding: '1em', cursor: 'auto', border:0 }}
                 cover={<img alt="thread logo png" src="../img/EB634A.png" />}
               >
                 <Meta description={<span style={{ color: color === 'black' ? 'white' : '#141414' }}>#EB634A</span>} />
               </Card>
               <Card
-                style={{ backgroundColor: color === 'black' ? '#262626' : '#f5f5f5', width: 160, padding: '1em', cursor: 'auto', border:0 }}
+                style={{ backgroundColor: color === 'black' ? '#262626' : '#f0f0f0', width: 160, padding: '1em', cursor: 'auto', border:0 }}
                 cover={<img alt="thread logo download free online" src="../img/5F83CA.png" />}
               >
                 <Meta description={<span style={{ color: color === 'black' ? 'white' : '#141414' }}>#5F83CA</span>} />
