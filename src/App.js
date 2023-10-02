@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import ReactDOM from 'react-dom';
 import { Typography, Radio, Button, Select, Card, Divider, Space, Col, Row, ColorPicker, Switch, ConfigProvider } from 'antd';
-import { InstagramOutlined, CheckOutlined, CloseOutlined } from '@ant-design/icons';
+import { InstagramOutlined, CheckOutlined } from '@ant-design/icons';
 import { ReactComponent as PreviewBgSvg } from './svg/preview/bg/preview.svg';
 import { ReactComponent as PreviewBgColorSvg } from './svg/preview/bg/preview-color.svg';
 import { ReactComponent as PreviewSingleSvg } from './svg/preview/single/preview.svg';
@@ -17,7 +17,7 @@ const App = () => {
   const [color, setColor] = useState('custom');
   const [size, setSize] = useState('16x16');
   const [format, setFormat] = useState('SVG');
-  const [isBackgroundSelected, setBackgroundSelected] = useState(true);
+  const [isBackgroundSelected, setBackgroundSelected] = useState(false);
   const [isCustomSelected, setCustomSelected] = useState(true);
   const [customColor, setCustomColor] = useState('');
   const [imgColor, setImgColor] = useState('black');
@@ -139,13 +139,13 @@ const App = () => {
 
   const getSvgElement = () => {
     if (isBackgroundSelected && color === 'color') {
-      return PreviewBgColorSvg;
-    } else if (!isBackgroundSelected && color === 'color') {
       return PreviewSingleColorSvg;
+    } else if (!isBackgroundSelected && color === 'color') {
+      return PreviewBgColorSvg;
     } else if (isBackgroundSelected) {
-      return PreviewBgSvg;
-    } else {
       return PreviewSingleSvg;
+    } else {
+      return PreviewBgSvg;
     }
   };
 
@@ -327,13 +327,12 @@ const App = () => {
                   </Space>
                   <Space align="center" style={{ width: '100%', height: '2em', justifyContent:'space-between' }}>
                         <Text style={{ fontSize: '1.2em', margin: '0' }}>
-                          Background
+                          Logo only
                         </Text>
                         <Switch
                           onChange={handleBackgroundChange}
                           checked={isBackgroundSelected}
                           checkedChildren={<CheckOutlined />}
-                          unCheckedChildren={<CloseOutlined />}
                           defaultChecked
                         />
                   </Space>
@@ -348,7 +347,6 @@ const App = () => {
                           }}
                           checked={switchChecked}
                           checkedChildren={<CheckOutlined />}
-                          unCheckedChildren={<CloseOutlined />}
                         />
                   </Space>
                   <Space align="baseline" style={{ width: '100%', height: '2em', justifyContent:'space-between' }}>
