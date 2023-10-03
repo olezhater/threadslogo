@@ -189,8 +189,8 @@ const App = () => {
     : { width: '320px', height: '320px' };
 
   const alignconteinerStyle =
-  screenWidth <= 375
-    ? { alignItems: 'center' }
+  screenWidth <= 428
+    ? { alignItems: 'center', marginBottom: '2em' }
     : { alignItems: 'flex-start' };
 
   const btnStyle =
